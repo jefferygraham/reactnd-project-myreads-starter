@@ -15,11 +15,17 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+  closeSearch = () => {
+    this.setState({
+      showSearchPage: false
+    })
+  }
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage />
+          <SearchPage closeSearch={this.closeSearch} />
         ) : (
             <div className="list-books">
               <div className="list-books-title">
