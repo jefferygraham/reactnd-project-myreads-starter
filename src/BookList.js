@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Shelf from './Shelf';
 
 class BookList extends Component {
+    static defaultProps = {
+        shelf1: 'Currently Reading',
+        shelf2: 'Want to Read',
+        shelf3: 'read'
+    }
     render() {
         return (
             <div className="list-books-content">
