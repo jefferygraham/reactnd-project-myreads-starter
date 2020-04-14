@@ -1,5 +1,4 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import SearchPage from './SearchPage';
 import './App.css'
 import BookCase from './BookCase';
@@ -13,16 +12,6 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          books
-        }))
-      })
   }
 
   closeSearch = () => {
@@ -42,7 +31,7 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              <BookCase books={this.state.books} />
+              <BookCase />
               <div className="open-search">
                 <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
               </div>

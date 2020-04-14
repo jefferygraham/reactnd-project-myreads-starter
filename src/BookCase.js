@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Shelf from './Shelf';
+import * as BooksAPI from './BooksAPI';
 
 class BookCase extends Component {
     static defaultProps = {
@@ -7,13 +8,35 @@ class BookCase extends Component {
         shelf2: 'wantToRead',
         shelf3: 'read'
     }
+
+    state = {
+        books: []
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then((books) => {
+                this.setState(() => ({
+                    books
+                }))
+            })
+    }
+
+    changeShelf = (newShelf, bookId) => {
+        console.log(newShelf, bookId);
+        let books = [...this.state.books];
+        let index = books.findIndex(book => book.id === bookId);
+        books[index].shelf = newShelf;
+        this.setState({ books });
+    }
+
     render() {
         return (
             <div className="list-books-content">
                 <div>
-                    <Shelf shelfProp={this.props.shelf1} books={this.props.books} />
-                    <Shelf shelfProp={this.props.shelf2} books={this.props.books} />
-                    <Shelf shelfProp={this.props.shelf3} books={this.props.books} />
+                    <Shelf shelfProp={this.props.shelf1} books={this.state.books} changeShelf={this.changeShelf} />
+                    <Shelf shelfProp={this.props.shelf2} books={this.state.books} changeShelf={this.changeShelf} />
+                    <Shelf shelfProp={this.props.shelf3} books={this.state.books} changeShelf={this.changeShelf} />
                 </div>
             </div>
         )

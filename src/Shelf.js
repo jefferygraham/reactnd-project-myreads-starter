@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Book from './Book';
 
 class Shelf extends Component {
+
+    changeStatus = (newShelf, bookId) => {
+        this.props.changeShelf(newShelf, bookId);
+    }
+
     render() {
         return (
             <div>
@@ -10,13 +15,15 @@ class Shelf extends Component {
                     <div className="bookshelf-books">
                         <ol className="books-grid">
                             {this.props.books.filter((book) => book.shelf === this.props.shelfProp).map((book) => (
-                                <li key={book.id}>
-                                    <Book
-                                        title={book.title}
-                                        authors={book.authors}
-                                        thumbnail={book.imageLinks.thumbnail}
-                                    />
-                                </li>
+                                <Book
+                                    title={book.title}
+                                    authors={book.authors}
+                                    thumbnail={book.imageLinks.thumbnail}
+                                    shelf={book.shelf}
+                                    changeStatus={this.changeStatus}
+                                    key={book.id}
+                                    id={book.id}
+                                />
                             ))}
                         </ol>
                     </div>
