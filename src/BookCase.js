@@ -4,9 +4,9 @@ import * as BooksAPI from './BooksAPI';
 
 class BookCase extends Component {
     static defaultProps = {
-        shelf1: 'currentlyReading',
-        shelf2: 'wantToRead',
-        shelf3: 'read'
+        shelf1: { id: 'currentlyReading', shelfTitle: 'Currently Reading' },
+        shelf2: { id: 'wantToRead', shelfTitle: 'Want to Read' },
+        shelf3: { id: 'read', shelfTitle: 'Read' }
     }
 
     state = {
@@ -23,7 +23,6 @@ class BookCase extends Component {
     }
 
     changeShelf = (updatedBook, newShelf) => {
-        console.log(updatedBook, newShelf)
         BooksAPI.update(updatedBook, newShelf)
             .then(data => {
                 let books = [...this.state.books];
@@ -37,9 +36,9 @@ class BookCase extends Component {
         return (
             <div className="list-books-content">
                 <div>
-                    <Shelf shelfProp={this.props.shelf1} books={this.state.books} changeShelf={this.changeShelf} />
-                    <Shelf shelfProp={this.props.shelf2} books={this.state.books} changeShelf={this.changeShelf} />
-                    <Shelf shelfProp={this.props.shelf3} books={this.state.books} changeShelf={this.changeShelf} />
+                    <Shelf shelf={this.props.shelf1} books={this.state.books} changeShelf={this.changeShelf} />
+                    <Shelf shelf={this.props.shelf2} books={this.state.books} changeShelf={this.changeShelf} />
+                    <Shelf shelf={this.props.shelf3} books={this.state.books} changeShelf={this.changeShelf} />
                 </div>
             </div>
         )

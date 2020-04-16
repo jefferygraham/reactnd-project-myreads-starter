@@ -13,10 +13,10 @@ class Shelf extends Component {
         return (
             <div>
                 <div className="bookshelf">
-                    <h2 className="bookshelf-title">{this.props.shelfProp}</h2>
+                    <h2 className="bookshelf-title">{this.props.shelf.shelfTitle}</h2>
                     <div className="bookshelf-books">
                         <ol className="books-grid">
-                            {this.props.books.filter((book) => book.shelf === this.props.shelfProp).map((book) => (
+                            {this.props.books.filter((book) => book.shelf === this.props.shelf.id).map((book) => (
                                 <Book
                                     title={book.title}
                                     authors={book.authors}
@@ -36,7 +36,7 @@ class Shelf extends Component {
 }
 
 Shelf.propTypes = {
-    shelfProp: PropTypes.string.isRequired,
+    shelf: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired,
     changeShelf: PropTypes.func.isRequired
 }
