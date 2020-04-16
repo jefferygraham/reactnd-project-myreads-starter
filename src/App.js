@@ -2,6 +2,7 @@ import React from 'react'
 import SearchPage from './SearchPage';
 import './App.css'
 import BookCase from './BookCase';
+import * as BooksAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
   state = {
@@ -12,12 +13,32 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
+    books: []
   }
 
   closeSearch = () => {
     this.setState({
       showSearchPage: false
     })
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        }))
+      })
+  }
+
+  changeShelf = (updatedBook, newShelf) => {
+    BooksAPI.update(updatedBook, newShelf)
+      .then(data => {
+        let books = [...this.state.books];
+        let index = books.findIndex(book => book.id === updatedBook[0].id);
+        books[index].shelf = newShelf;
+        this.setState({ books });
+      })
   }
 
   render() {
@@ -31,7 +52,7 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              <BookCase />
+              <BookCase books={this.state.books} changeShelf={this.changeShelf} />
               <div className="open-search">
                 <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
               </div>

@@ -9,12 +9,12 @@ class SearchPage extends Component {
 
     updateQuery = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value.trim()
         }, () => {
-            const query = this.state.query;
+            const query = this.state.query
             BooksAPI.search(query)
                 .then((books) => {
-                    console.log(books)
+                    console.log(query)
                     this.setState(() => ({
                         books
                     }))
@@ -30,6 +30,7 @@ class SearchPage extends Component {
         const showingBooks = this.state.query === "" ?
             this.state.books
             : this.state.books.filter((book) => book.title.toLowerCase().includes(this.state.query.toLowerCase()))
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
