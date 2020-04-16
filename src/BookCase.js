@@ -22,12 +22,15 @@ class BookCase extends Component {
             })
     }
 
-    changeShelf = (newShelf, bookId) => {
-        console.log(newShelf, bookId);
-        let books = [...this.state.books];
-        let index = books.findIndex(book => book.id === bookId);
-        books[index].shelf = newShelf;
-        this.setState({ books });
+    changeShelf = (updatedBook, newShelf) => {
+        console.log(updatedBook, newShelf)
+        BooksAPI.update(updatedBook, newShelf)
+            .then(data => {
+                let books = [...this.state.books];
+                let index = books.findIndex(book => book.id === updatedBook[0].id);
+                books[index].shelf = newShelf;
+                this.setState({ books });
+            })
     }
 
     render() {

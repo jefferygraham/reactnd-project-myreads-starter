@@ -4,7 +4,8 @@ import Book from './Book';
 class Shelf extends Component {
 
     changeStatus = (newShelf, bookId) => {
-        this.props.changeShelf(newShelf, bookId);
+        let book = this.props.books.filter((book) => book.id === bookId);
+        this.props.changeShelf(book, newShelf);
     }
 
     render() {
