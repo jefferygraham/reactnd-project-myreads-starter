@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Book extends Component {
     state = {
@@ -33,6 +34,15 @@ class Book extends Component {
             </li>
         )
     }
+}
+
+Book.propType = {
+    title: PropTypes.string.isRequired,
+    authors: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    shelf: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    changeStatus: PropTypes.func.isRequired,
 }
 
 export default Book;
