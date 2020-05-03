@@ -11,13 +11,14 @@ class BookCase extends Component {
         ]
     }
     render() {
+        const { books } = this.props
         return (
             <div className="list-books-content">
                 <div>
                     {this.props.shelves.map(shelf => (
                         <BookShelf
                             key={shelf.id}
-                            books={this.props.books}
+                            books={books}
                             shelf={shelf}
                         />
                     ))}
