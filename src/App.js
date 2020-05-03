@@ -25,11 +25,17 @@ class BooksApp extends React.Component {
       })
   }
 
+  toggleShowSearch = () => {
+    this.setState({
+      showSearchPage: !this.state.showSearchPage
+    })
+  }
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage />
+          <SearchPage toggleShowSearch={this.toggleShowSearch} />
         ) : (
             <div className="list-books">
               <div className="list-books-title">
@@ -37,7 +43,7 @@ class BooksApp extends React.Component {
               </div>
               <BookCase books={this.state.books} />
               <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+                <button onClick={this.toggleShowSearch}>Add a book</button>
               </div>
             </div>
           )}
