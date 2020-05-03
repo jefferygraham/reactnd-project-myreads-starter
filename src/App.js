@@ -18,7 +18,6 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then(books => {
-        console.log(books);
         this.setState({
           books: books
         })
@@ -53,7 +52,7 @@ class BooksApp extends React.Component {
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
-              <BookCase />
+              <BookCase books={this.state.books} />
               <div className="open-search">
                 <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
               </div>
