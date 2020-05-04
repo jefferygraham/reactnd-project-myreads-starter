@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as BooksAPI from './BooksAPI'
 
 import BookShelf from './BookShelf'
 
@@ -10,15 +11,32 @@ class BookCase extends Component {
             { id: 'read', name: 'Read' },
         ]
     }
+
+    state = {
+        books: []
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll()
+            .then(books => {
+                this.setState({
+                    books: books
+                })
+            })
+    }
+
+    rearrangBooks = () => {
+        console.log('rearranging')
+    }
     render() {
-        const { books } = this.props
         return (
             <div className="list-books-content">
                 <div>
                     {this.props.shelves.map(shelf => (
                         <BookShelf
+                            moveBook={this.rearrangBooks}
                             key={shelf.id}
-                            books={books}
+                            books={this.state.books}
                             shelf={shelf}
                         />
                     ))}
