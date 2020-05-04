@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import Book from './Book'
 
 class BookShelf extends Component {
-    changeShelf = () => {
-        this.props.moveBook()
+    changeBookShelf = (newShelf, bookId) => {
+        let book = this.props.books.filter((book) => book.id === bookId);
+        this.props.changeShelf(book, newShelf);
     }
     render() {
         const { books, shelf } = this.props
@@ -14,7 +15,7 @@ class BookShelf extends Component {
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {books.filter(book => (book.shelf === shelf.id)).map(book => (
-                            <Book changeShelfStatus={this.changeShelf} key={book.id} book={book} />
+                            <Book changeBookShelf={this.changeBookShelf} key={book.id} book={book} />
                         ))}
                     </ol>
                 </div>

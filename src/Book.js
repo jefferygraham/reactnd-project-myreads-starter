@@ -5,8 +5,10 @@ class Book extends Component {
         shelf: this.props.book.shelf
     }
 
-    handleChange = () => {
-        this.props.changeShelfStatus()
+    handleChange = (e) => {
+        let newShelf = e.target.value;
+        let bookId = this.props.book.id;
+        this.props.changeBookShelf(newShelf, bookId)
     }
 
     render() {
