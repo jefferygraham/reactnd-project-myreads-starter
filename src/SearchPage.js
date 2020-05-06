@@ -13,12 +13,6 @@ class SearchPage extends Component {
         this.props.searchBooks(this.state.query.trim())
     }
 
-    toggleShowSearch = () => {
-        this.props.toggleShowSearch();
-    }
-
-
-
     render() {
         const { query } = this.state;
         return (

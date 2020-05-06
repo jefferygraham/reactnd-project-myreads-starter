@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookCase from './BookCase'
 import SearchPage from './SearchPage'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -12,7 +13,6 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
     books: [],
     foundBooks: []
   }
@@ -24,12 +24,6 @@ class BooksApp extends React.Component {
           books: books
         })
       })
-  }
-
-  toggleShowSearch = () => {
-    this.setState({
-      showSearchPage: !this.state.showSearchPage
-    })
   }
 
   changeBookShelf = (updatedBook, newShelf) => {
@@ -54,27 +48,32 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+
+        <Route exact path="/search" render={() => (
           <SearchPage
-            toggleShowSearch={this.toggleShowSearch}
             searchBooks={this.searchBooks}
             foundBooks={this.state.foundBooks}
           />
-        ) : (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <BookCase
-                changeBookShelf={this.changeBookShelf}
-                books={this.state.books}
-              />
-              <div className="open-search">
-                <button onClick={this.toggleShowSearch}>Add a book</button>
-              </div>
+        )} />
+
+        <Route exact path="/" render={() => (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
             </div>
-          )}
+
+            <BookCase
+              changeBookShelf={this.changeBookShelf}
+              books={this.state.books}
+            />
+
+            <div className="open-search">
+              <button>Add a book</button>
+            </div>
+          </div>
+        )} />
       </div>
+
     )
   }
 }
