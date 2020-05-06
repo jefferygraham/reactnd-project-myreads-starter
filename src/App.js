@@ -13,7 +13,8 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    foundBooks: []
   }
 
   componentDidMount() {
@@ -41,11 +42,24 @@ class BooksApp extends React.Component {
       })
   }
 
+  searchBooks = (query) => {
+    BooksAPI.search(query)
+      .then(books => {
+        this.setState({
+          foundBooks: books
+        })
+      })
+  }
+
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchPage toggleShowSearch={this.toggleShowSearch} />
+          <SearchPage
+            toggleShowSearch={this.toggleShowSearch}
+            searchBooks={this.searchBooks}
+            foundBooks={this.state.foundBooks}
+          />
         ) : (
             <div className="list-books">
               <div className="list-books-title">
