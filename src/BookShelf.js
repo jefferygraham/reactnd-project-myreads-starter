@@ -7,6 +7,7 @@ class BookShelf extends Component {
         let book = this.props.books.filter((book) => book.id === bookId);
         this.props.changeShelf(book, newShelf);
     }
+
     render() {
         const { books, shelf } = this.props
         return (
