@@ -37,8 +37,9 @@ class BooksApp extends React.Component {
   }
 
   searchBooks = (query) => {
-    BooksAPI.search(query)
+    BooksAPI.search(query.trim())
       .then(books => {
+        console.log(books)
         this.setState({
           foundBooks: books
         })

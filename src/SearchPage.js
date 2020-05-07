@@ -11,11 +11,19 @@ class SearchPage extends Component {
         this.setState(() => ({
             query: query
         }))
-        this.props.searchBooks(this.state.query.trim())
+        this.props.searchBooks(query)
     }
 
     render() {
         const { query } = this.state;
+        const { foundBooks } = this.props;
+
+        const showingBooks = query === "" ?
+            foundBooks :
+            foundBooks.filter((foundBook) => (
+                foundBook.title.toLowerCase().includes(query.toLowerCase())
+            ))
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -40,7 +48,7 @@ class SearchPage extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.props.foundBooks.map(book => (
+                        {showingBooks.map(book => (
                             <Book changeBookShelf={this.changeBookShelf} key={book.id} book={book} />
                         ))}
                     </ol>

@@ -20,7 +20,7 @@ class Book extends Component {
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                         <div className="book-shelf-changer">
                             <select
-                                defaultValue={this.state.shelf}
+                                defaultValue={this.state.shelf || 'none'}
                                 onChange={this.handleChange}
                             >
                                 <option value="move" disabled>Move to...</option>
