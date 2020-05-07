@@ -27,13 +27,13 @@ class BooksApp extends React.Component {
   }
 
   addBookToShelf = (updatedBook, newShelf) => {
-    console.log(updatedBook[0])
     BooksAPI.update(updatedBook, newShelf)
       .then(data => {
         updatedBook[0].shelf = newShelf;
-        this.setState(() => ({
-          books: [...this.state.books, updatedBook[0]]
-        }))
+        this.setState({
+          books: [...this.state.books, updatedBook[0]],
+          foundBooks: this.state.foundBooks.filter(book => book.id !== updatedBook[0].id)
+        })
       })
   }
 
