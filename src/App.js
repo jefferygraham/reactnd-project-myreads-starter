@@ -14,7 +14,8 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: [],
-    foundBooks: []
+    foundBooks: [],
+    showErr: false
   }
 
   componentDidMount() {
@@ -51,9 +52,22 @@ class BooksApp extends React.Component {
     BooksAPI.search(query.trim())
       .then(books => {
         console.log(books)
-        this.setState({
-          foundBooks: books
-        })
+        if (!books) {
+          this.setState({
+            foundBooks: [],
+            showErr: false
+          })
+        }
+        else if (books && Array.isArray(books)) {
+          this.setState({
+            foundBooks: books,
+            showErr: false
+          })
+        } else {
+          this.setState({
+            showErr: true
+          })
+        }
       })
   }
 
@@ -67,6 +81,7 @@ class BooksApp extends React.Component {
               searchBooks={this.searchBooks}
               addBookToShelf={this.addBookToShelf}
               foundBooks={this.state.foundBooks}
+              showErr={this.state.showErr}
             />
           )} />
 

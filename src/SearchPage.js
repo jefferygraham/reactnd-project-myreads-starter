@@ -26,7 +26,7 @@ class SearchPage extends Component {
 
     render() {
         const { query } = this.state;
-        const { foundBooks } = this.props;
+        const { foundBooks, showErr } = this.props;
 
         const showingBooks = query === "" ?
             foundBooks :
@@ -57,11 +57,15 @@ class SearchPage extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid">
-                        {showingBooks.map(book => (
-                            <Book changeBookShelf={this.addBookToShelf} key={book.id} book={book} />
-                        ))}
-                    </ol>
+                    {showErr ?
+                        <h2>No Results</h2>
+                        :
+                        <ol className="books-grid">
+                            {showingBooks.map(book => (
+                                <Book changeBookShelf={this.addBookToShelf} key={book.id} book={book} />
+                            ))}
+                        </ol>
+                    }
                 </div>
             </div >
         )
